@@ -4,7 +4,11 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: '*', // This asterisk is the "Magic Key" that says 'Allow All URLs'
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // --- CONFIGURATION (SECURE) ---
