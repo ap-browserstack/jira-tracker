@@ -5,8 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
-// 1. THIS IS THE CORS FIX
-// It tells the browser: "I trust requests from other websites"
+// This is the "Permission Slip" that fixes the CORS error
 app.use(cors({
   origin: '*', 
   methods: ['GET', 'POST', 'OPTIONS'],
@@ -35,7 +34,7 @@ app.get('/api/tickets', async (req, res) => {
         'Authorization': `Basic ${auth}`,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Atlassian-Token': 'no-check' // Helps bypass extra security filters
+        'X-Atlassian-Token': 'no-check' 
       }
     });
 
@@ -53,10 +52,8 @@ app.get('/api/tickets', async (req, res) => {
     res.json(jiraTickets);
 
   } catch (error) {
-    console.error("Error:", error.message);
-    res.status(500).json({ error: "Failed to fetch Jira data" });
+    res.status(500).json({ error: "Jira Fetch Failed" });
   }
 });
 
-// For Vercel deployment
 module.exports = app;
