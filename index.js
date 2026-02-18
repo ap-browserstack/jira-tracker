@@ -28,7 +28,7 @@ app.get('/api/tickets', async (req, res) => {
     const response = await axios.post(jiraUrl, {
       "jql": `project = "${PROJECT_KEY}" AND status != "Done" AND status != "Launched" AND status != "Invalid/ Dispose" AND duedate is not EMPTY AND created >= -90d ORDER BY created DESC`,
       "fields": ["summary", "assignee", "duedate", "issuetype", "status", "id", "key"],
-      "maxResults": 100
+      "maxResults": 500 // CHANGED FROM 100 TO 500
     }, {
       headers: {
         'Authorization': `Basic ${auth}`,
